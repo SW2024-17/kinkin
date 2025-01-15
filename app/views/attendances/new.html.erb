@@ -1,0 +1,15 @@
+<h1>出勤登録</h1>
+
+<%= form_with(model: @attendance, url: user_attendances_path(params[:user_id]), method: :post, local: true) do |form| %>
+  <div>
+    <%= form.label :check_in, "出勤時刻" %>
+    <%= form.datetime_local_field :check_in, value: Time.now, required: true %>
+  </div>
+  <div>
+    <%= form.hidden_field :user_id, value: params[:user_id] %>
+  </div>
+  <div>
+    <%= form.submit "出勤" %>
+  </div>
+<% end %>
+

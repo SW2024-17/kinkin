@@ -1,0 +1,19 @@
+<h1>ログイン</h1>
+
+<%= form_with(url: sessions_path, method: :post, local: true) do |form| %>
+  <div>
+    <%= form.label :user_id, "ユーザーID" %>
+    <%= form.text_field :user_id, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :password, "パスワード" %>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit '出勤' %>
+  </div>
+<% end %>
+
+<%= link_to '新規登録', new_user_path %> <!-- 新規ユーザー登録へのリンク -->

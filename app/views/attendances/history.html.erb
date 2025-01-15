@@ -1,0 +1,20 @@
+<h1><%= @user.name %> の勤怠履歴</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>出勤日時</th>
+      <th>退勤日時</th>
+      <th>状態</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @attendances.each do |attendance| %>
+      <tr>
+        <td><%= attendance.check_in %></td>
+        <td><%= attendance.check_out || '未退勤' %></td>
+        <td><%= attendance.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

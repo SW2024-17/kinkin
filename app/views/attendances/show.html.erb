@@ -1,0 +1,18 @@
+<h1>出勤中</h1>
+
+<% if current_user %>
+  <% attendance = current_user.attendances.find_by(status: '出勤', check_out: nil) %>
+  
+  <% if attendance.present? %>
+    <p>出勤中: <%= current_user.name %></p>
+    <p>出勤時間: <%= attendance.check_in %></p>
+    <p>退勤時間: <%= attendance.check_out || '未退勤' %></p>
+    <%= form_with(url: user_attendance_path(current_user, attendance), method: :patch) do %>
+      <%= submit_tag '退勤', data: { confirm: '退勤しますか？' } %>
+    <% end %>
+  <% else %>
+    <p>出勤していません。</p>
+  <% end %>
+<% else %>
+  <%= link_to 'ログイン', new_session_path %>
+<% end %>

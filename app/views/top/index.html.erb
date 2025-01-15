@@ -1,0 +1,39 @@
+<h1>KinKin</h1>
+
+<% if current_user %>
+  <h2>出勤中: <%= current_user.name %></h2>
+  <p>出勤時間: <%= current_user.last_sign_in_at %></p>
+  <p>退勤時間: <%= current_user.last_sign_out_at || '未退勤' %></p>
+
+  <% attendance = current_user.attendances.find_by(status: '出勤', check_out: nil) %>
+  
+  <% if attendance %>
+    <p>出勤時間: <%= attendance.check_in %></p>
+    <p>退勤時間: <%= attendance.check_out || '未退勤' %></p>
+
+    <%= form_with(model: attendance, url: check_out_user_attendance_path(current_user, attendance), method: :patch) do |form| %>
+      <%= form.hidden_field :status, value: '退勤' %>
+      <%= form.submit '退勤', data: { confirm: '退勤しますか？' } %>
+    <% end %>
+  <% else %>
+    <%= link_to '勤怠修正', new_user_attendance_path(current_user), class: 'btn' %>
+  <% end %>
+
+  
+<% else %>
+  <%= link_to 'ログイン', new_session_path %> | 
+  <%= link_to '新規登録', new_user_path %>
+<% end %>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
+    document.getElementById('clock').textContent = timeString;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+</script>

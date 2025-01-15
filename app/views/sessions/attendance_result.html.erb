@@ -1,0 +1,10 @@
+<h1>出勤結果</h1>
+
+<% if @user %>
+  <p>出勤中: <%= @user.name %></p>
+  <p>出勤時間: <%= @user.last_sign_in_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <p>退勤時間: <%= @user.last_sign_out_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <%= link_to 'トップページに戻る', root_path %>
+<% else %>
+  <p>ユーザー情報がありません。</p>
+<% end %>

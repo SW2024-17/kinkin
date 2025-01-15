@@ -22,4 +22,10 @@ test:
 
 production:
   <<: *default
-  database: storage/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: test_render_cbm5
+  username: test_render_cbm5_user
+  password: <%= ENV['kinkin_fu40'] %>
+  url: <%= ENV['kinkin_fu40_user'] %>

@@ -1,0 +1,26 @@
+<h1>勤怠一覧</h1>
+
+<% if @attendances.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>出勤時刻</th>
+        <th>退勤時刻</th>
+        <th>状態</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @attendances.each do |attendance| %>
+        <tr>
+          <td><%= attendance.check_in %></td>
+          <td><%= attendance.check_out || '未退勤' %></td>
+          <td><%= attendance.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>出勤記録がありません。</p>
+<% end %>
+
+<%= link_to '新規勤怠登録', new_attendance_path %>
